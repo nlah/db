@@ -239,9 +239,9 @@ class lecture_hall(MODEL_data):
         if(data.get('lecture_hall')!=None and data.get('undepartment')!=None): return self.Create_un(data.get('lecture_hall'),data.get('undepartment'))
  
     def MATCH(self,i,j):
-        return self._match('subject',i,j)
+        return self._match('lecture_hall',i,j)
     def departament(self,id):
-        return self.query('match (n:lecture_hall)-[r:time_lecture|subject_s|Group_SD|GR|un*]->(m:department) where  id(n)='+str(id)+' return DISTINCT m,r')
+        return self.query('match (n:lecture_hall)-[r:time_lecture|subject_s|Group_SD|GR|un*]-(m:department) where  id(n)='+str(id)+' return DISTINCT m,r')
     def information(self):
             return (['name'],'lecture_hall')
     def information_E(self):

@@ -11,3 +11,16 @@ C:\Users\het\Google Диск\Prog\БД\pr_test\pr_test\bin\Microsoft.PythonTools
 C:\Users\het\Google Диск\Prog\БД\pr_test\pr_test\bin\wfastcgi.py
 C:\Users\het\Google Диск\Prog\БД\pr_test\pr_test\obj\Debug\web.config
 C:\Users\het\Google Диск\Prog\БД\pr_test\pr_test\obj\Debug\web.debug.config
+C:\Users\het\Google Диск\Prog\db\project\pr_test\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\attach_server.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\visualstudio_py_debugger.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\visualstudio_py_repl.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\visualstudio_py_util.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\__init__.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\__main__.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\bin\AzureSetup.cfg
+C:\Users\het\Google Диск\Prog\db\project\pr_test\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\Users\het\Google Диск\Prog\db\project\pr_test\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\Users\het\Google Диск\Prog\db\project\pr_test\bin\wfastcgi.py
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\web.config
+C:\Users\het\Google Диск\Prog\db\project\pr_test\obj\Debug\web.debug.config
