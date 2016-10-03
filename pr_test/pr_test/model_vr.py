@@ -1,5 +1,4 @@
 from neo4j.v1 import GraphDatabase, basic_auth ,CypherError
-
 class Singleton(type):
     _instances = {}
     def __call__(cls, *args, **kwargs):
@@ -81,7 +80,7 @@ class MODEL_data:
     def MATCH_rel(self,lable,rel):
         return self.query('MATCH (a:'+lable+')-[r:'+rel+']-(n) return r,n')        
     def labels_name(self):
-        return self.query('MATCH (a) RETURN DISTINCT labels(a)')
+        return ['department','undepartment','Group','employee','subject','lecture_hall','student']
     @staticmethod
     def id_get_Create(a):
         id=[]
@@ -100,12 +99,10 @@ class MODEL_data:
             for i in a:
                 id.append(i[i.keys()[0]].id)
             return id
-
-
 class department(MODEL_data):
         __metaclass__ = Singleton
         def Create_arr(self,inf):
-                self._add_CREATE('CREATE (a:department{name:\''+inf['name']+'\',data:\''+inf['data']+'\'}) return a')
+                self._add_CREATE('MERGE  (a:department{name:\''+inf['name']+'\',data:\''+inf['data']+'\'}) return a')
                 return self.save()
        
         def Create(self,name,data):
@@ -124,7 +121,7 @@ class department(MODEL_data):
 class undepartment(MODEL_data):
         __metaclass__ = Singleton
         def Create_arr(self,inf):
-                self._add_CREATE('CREATE (a:undepartment{name:\''+inf['name']+'\',data:\''+inf['data']+'\'}) return a')
+                self._add_CREATE('MERGE  (a:undepartment{name:\''+inf['name']+'\',data:\''+inf['data']+'\'}) return a')
                 return self.save()
         def Create(self,name,data):
               list(map(lambda x,y:self._add_CREATE('CREATE (a:undepartment{name:\''+x+'\',data:\''+y+'\'}) return a'),name,data))
@@ -189,7 +186,7 @@ class Group(MODEL_data):
            self._add_CREATE('MATCH (a:undepartment),(b:Group) WHERE id(b)='+str(id)+' and id(a)='+str(idU)+' and not EXISTS((b)-[:GR]-())   WITH a,b  CREATE (b)-[r:GR]->(a) return r')
            return self.save()
         def Crate_E(self,data):
-            if(data.get('undepartment')!=None and data.get('Group')!=None): return self.Create_Group(data.get('Group'),data.get('undepartment'))  
+            if(data.get('undepartment')!=None and data.get('Group')!=None): return self.Create_un(data.get('Group'),data.get('undepartment'))  
         def MATCH(self,i,j):
             return self._match('Group',i,j) 
         def information(self):
@@ -227,7 +224,7 @@ class subject(MODEL_data):
 class lecture_hall(MODEL_data):
     __metaclass__ = Singleton
     def Create_arr(self,inf):
-         self._add_CREATE('CREATE (a:lecture_hall{number:\''+inf['number']+'\'}) return a')
+         self._add_CREATE('CREATE (a:lecture_hall{number:\''+inf['name']+'\'}) return a')
          return self.save()    
     def Create(self,N):
         list(map(lambda x: self._add_CREATE('CREATE (a:lecture_hall{number:'+str(x)+'}) return a'),N))
@@ -246,12 +243,11 @@ class lecture_hall(MODEL_data):
             return (['name'],'lecture_hall')
     def information_E(self):
             return ({'undepartment':(['lecture_hall','undepartment'],'lecture_hall_undepartment')},'lecture_hall')
-
-
 class student(MODEL_data):
     __metaclass__ = Singleton
     def Create_arr(self,inf):
          self._add_CREATE('CREATE (a:student{name:\''+inf['name']+'\',address:\''+inf['address']+'\',data:\''+inf['data']+'\'}) return a')
+         return self.save()
     def Create(self,name,address,data):
         list(map(lambda x,y,z:self._add_CREATE('CREATE (a:student{name:\''+x+'\',address:\''+y+'\',data:\''+y+'\'}) return a'),name,address,data))
         return self.save()
@@ -279,13 +275,9 @@ class student(MODEL_data):
     def departament(self,id):
         return self.query('match (n:student)-[r:Group_SD|GR|un*]->(m:department) where  id(n)='+str(id)+' return DISTINCT m,r')
     def information(self):
-            return (['name','addres','data'],'student')
+            return (['name','address','data'],'student')
     def information_E(self):
             return ({'Group':(['Group','student'],'Group_SD'),'employee':(['employee','student','text'],'DWorKW'),'subject':(['subject','student'],'subject_s')},'student')
-
-
-
-
 class Strategy_data(MODEL_data):
     data=None
     information=None
@@ -298,11 +290,7 @@ class Strategy_data(MODEL_data):
         if('lecture_hall'==data):self.data=lecture_hall()
         if('student'==data):self.data=student()
     def label(self):
-        labels=self.labels_name()
-        data=[]
-        for i in labels:
-            data.append(i[i.keys()[0]][0])
-        return data
+        return self.labels_name()
     def create(self,inf):
         return self.data.Create_arr(inf)
 
@@ -323,12 +311,6 @@ class Strategy_data(MODEL_data):
             return self.query('MATCH (n:'+lable+') WHERE  not EXISTS((n)-[:'+rel+']-())  return n')
     def dep(self,id):
          return self.query('MATCH (n)-[*]-(m:department) WHERE id(n)='+str(id)+' WITH n ')
-
-        
-   
-        
-        
-    
 #def test():
 #    a=MODEL_data()
 #    #b=[('department','name'),('department','data'),('undepartment','name'),('undepartment','data')
@@ -337,7 +319,6 @@ class Strategy_data(MODEL_data):
 #    #,('student','name'),('student','address'),('student','data')
 #    #]
 #    a.res(b)
-
 def start2():
     st=MODEL_data()
     st.res()
@@ -370,9 +351,6 @@ def start2():
         stud.Create_Group(i,MODEL_data.id_get_Create(b1)[i%2])
     for i in MODEL_data.id_get_Create(s1):
         stud.Create_subject(i,MODEL_data.id_get_Create(c1)[i%2],'NA')
-    
-    
-
 
 #driver = GraphData,base.driver('bolt://localhost:7687', auth=basic_auth("neo4j", "3809696"),encrypted=False)
 #res = driver.session()
