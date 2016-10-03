@@ -1,0 +1,6 @@
+Failed to initialize role.
+
+Exception:
+System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта.
+   в AzureSetup.Program.ConfigureFastCgi()
+   в AzureSetup.Program.Main(String[] args)
