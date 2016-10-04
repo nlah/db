@@ -122,7 +122,9 @@ def delete():
     match_data=log.match_model(0,0)    
     data=['id']
     if request.method=='POST':
+            
             log.DELETE_N(request.form['id'])
+            match_data=log.match_model(0,0)    
             return render_template(
                 'del.html',
                 title='Contact',

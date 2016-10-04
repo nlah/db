@@ -70,10 +70,10 @@ class MODEL_data:
        self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+' SET n.'+name+'='+data)
        self.save()
     def DELETE_N(self,id):
-       self._add_CREATE('MATCH (n) WHERE id(n)='+str(id)+' DELETE n')
+       self._add_CREATE('MATCH (n) WHERE id(n)='+str(id)+' DETACH DELETE n')
        self.save()
     def DELETE_E(self,id):
-       self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+' DELETE n')
+       self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+' DETACH DELETE n')
        self.save()
     def MATCH_rel_id(self,id):
         return self.query('MATCH (a)-[r]-(n) WHERE id(a)='+str(id)+' return r,n')
@@ -132,7 +132,6 @@ class undepartment(MODEL_data):
         def Crate_E(self,data):
             if(data.get('undepartment')!=None and  data.get('department')!=None):return self.Create_place(data.get('undepartment'), data.get('department'))  
         def MATCH(self,i,j):
-           
             return self._match('undepartment',i,j)
 
         def MATCH_A(self,name):
