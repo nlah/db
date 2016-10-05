@@ -15363,3 +15363,61 @@ Storage files: (filename : modification date - size)
 2016-10-05 11:15:03.719+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [663]:  Check pointing completed
 2016-10-05 11:15:03.725+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
 2016-10-05 11:15:03.730+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2016-10-05 11:20:43.757+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [664]:  Starting check pointing...
+2016-10-05 11:20:43.764+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [664]:  Starting store flush...
+2016-10-05 11:20:43.986+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 664 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a].
+2016-10-05 11:20:44.007+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 664 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a].
+2016-10-05 11:20:44.145+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [664]:  Store flush completed
+2016-10-05 11:20:44.151+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [664]:  Starting appending check point entry into the tx log...
+2016-10-05 11:20:44.183+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [664]:  Appending check point entry into the tx log completed
+2016-10-05 11:20:44.189+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [664]:  Check pointing completed
+2016-10-05 11:20:44.195+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2016-10-05 11:20:44.202+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2016-10-05 11:25:44.226+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [668]:  Starting check pointing...
+2016-10-05 11:25:44.232+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [668]:  Starting store flush...
+2016-10-05 11:25:44.427+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 668 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b].
+2016-10-05 11:25:44.446+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 668 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b].
+2016-10-05 11:25:44.586+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [668]:  Store flush completed
+2016-10-05 11:25:44.592+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [668]:  Starting appending check point entry into the tx log...
+2016-10-05 11:25:44.624+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [668]:  Appending check point entry into the tx log completed
+2016-10-05 11:25:44.630+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [668]:  Check pointing completed
+2016-10-05 11:25:44.636+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2016-10-05 11:25:44.642+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2016-10-05 11:41:04.710+0000 ERROR [o.n.b.t.SocketTransportHandler] Fatal error occurred when handling a client connection: Удаленный хост принудительно разорвал существующее подключение Удаленный хост принудительно разорвал существующее подключение
+java.io.IOException: Удаленный хост принудительно разорвал существующее подключение
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source)
+	at sun.nio.ch.IOUtil.read(Unknown Source)
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source)
+	at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:311)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:881)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:242)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:119)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:511)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:468)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:382)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:354)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:111)
+	at java.lang.Thread.run(Unknown Source)
+2016-10-05 12:43:02.556+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 2609213ms.
+2016-10-05 12:43:05.032+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 442ms.
+2016-10-05 12:53:33.480+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 616ms.
+2016-10-05 12:59:07.567+0000 ERROR [o.n.b.t.SocketTransportHandler] Fatal error occurred when handling a client connection: Удаленный хост принудительно разорвал существующее подключение Удаленный хост принудительно разорвал существующее подключение
+java.io.IOException: Удаленный хост принудительно разорвал существующее подключение
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source)
+	at sun.nio.ch.IOUtil.read(Unknown Source)
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source)
+	at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:311)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:881)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:242)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:119)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:511)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:468)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:382)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:354)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:111)
+	at java.lang.Thread.run(Unknown Source)
+2016-10-05 13:53:34.688+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 1139ms.

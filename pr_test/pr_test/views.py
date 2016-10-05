@@ -91,13 +91,15 @@ class appbild:
             message='Your application description page.',
             labls_name='start',
             form=['start'],
-            inmr=self.log.information_E()
+            inmr=self.log.information_E(),
+            error=self.log.error
         )
     def add_rel(self,request):
         inf=['start']
+        data=['sss']
         try:
             inf=self.log.information_E()[0][request.form['start']][0]
-            data=self.log.MATCH_rel(session,request)
+            data=self.log.MATCH_rel(self.session,request)
         except:
             data=self.log.create_E(request.form)
         finally:             
@@ -108,7 +110,9 @@ class appbild:
                 message='Your application description page.',
                 labls_name='start',  
                 inmr=data,          
-                form=inf
+                form=inf,
+                error=self.log.error
+
             )
     def choice_update_node(self):
             return render_template(

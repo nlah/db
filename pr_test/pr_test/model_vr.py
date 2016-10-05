@@ -46,6 +46,7 @@ class MODEL_data:
         data=None
         try:
             data=list(session.run(query))
+            
             session.close()
             return data
         except CypherError as a:
@@ -293,13 +294,13 @@ class Strategy_data(MODEL_data):
     data=None
     information=None
     def logic(self,data):
-        if('department'==data):self.data=department();self.data.error.clear()
-        if('undepartment'==data): self.data=undepartment();self.data.error.clear()
-        if('Group'==data):self.data=Group();self.data.error.clear()
-        if('employee'==data):self.data=employee();self.data.error.clear()
-        if('subject'==data): self.data=subject();self.data.error.clear()
-        if('lecture_hall'==data):self.data=lecture_hall();self.data.error.clear()
-        if('student'==data):self.data=student();self.data.error.clear()
+        if('department'==data):self.data=department();
+        if('undepartment'==data): self.data=undepartment();
+        if('Group'==data):self.data=Group();
+        if('employee'==data):self.data=employee();
+        if('subject'==data): self.data=subject();
+        if('lecture_hall'==data):self.data=lecture_hall();
+        if('student'==data):self.data=student();
     def label(self):
         return self.labels_name()
     def create(self,inf):
@@ -322,11 +323,11 @@ class Strategy_data(MODEL_data):
             return self.query('MATCH (n:'+lable+') WHERE  not EXISTS((n)-[:'+rel+']-())  return n')
     def MATCH_rel(self,session,request):
             flag=True
-            data=None
+            data=(session['User'],request.form['start'])
             if(session['User']=='employee'and request.form['start']=='Group'):
-                data=self.log.match_model(0,0,True);flag=False
+                data=self.match_model(0,0,True);flag=False
             if(session['User']=='student'and request.form['start']=='employee'):
-                data=self.log.match_model(0,0,True);flag=False
+                data=self.match_model(0,0,True);flag=False
             if(flag):
                 data=( self._MATCH_rel(session['User'],self.information_E()[0][request.form['start']][1]),
                 self._MATCH_rel(request.form['start'],None),Strategy_data.id_get_query( self._MATCH_rel(request.form['start'],None)))
