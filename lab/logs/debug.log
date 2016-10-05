@@ -14614,3 +14614,48 @@ java.io.IOException: Удаленный хост принудительно ра
 2016-10-05 03:42:41.228+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 212ms.
 2016-10-05 04:42:41.597+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 271ms.
 2016-10-05 05:42:42.036+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 432ms.
+2016-10-05 06:42:42.330+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 279ms.
+2016-10-05 07:42:43.226+0000 WARN  [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 858ms.
+2016-10-05 07:50:33.267+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [658]:  Starting check pointing...
+2016-10-05 07:50:33.275+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [658]:  Starting store flush...
+2016-10-05 07:50:33.546+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 658 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b].
+2016-10-05 07:50:33.607+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 658 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b].
+2016-10-05 07:50:33.763+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [658]:  Store flush completed
+2016-10-05 07:50:33.769+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [658]:  Starting appending check point entry into the tx log...
+2016-10-05 07:50:33.803+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [658]:  Appending check point entry into the tx log completed
+2016-10-05 07:50:33.816+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [658]:  Check pointing completed
+2016-10-05 07:50:33.826+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2016-10-05 07:50:33.838+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2016-10-05 07:55:33.861+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [659]:  Starting check pointing...
+2016-10-05 07:55:33.869+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [659]:  Starting store flush...
+2016-10-05 07:55:33.946+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 659 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a].
+2016-10-05 07:55:33.965+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 659 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a].
+2016-10-05 07:55:34.142+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [659]:  Store flush completed
+2016-10-05 07:55:34.149+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [659]:  Starting appending check point entry into the tx log...
+2016-10-05 07:55:34.187+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [659]:  Appending check point entry into the tx log completed
+2016-10-05 07:55:34.193+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [659]:  Check pointing completed
+2016-10-05 07:55:34.199+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2016-10-05 07:55:34.206+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2016-10-05 08:07:34.261+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [660]:  Starting check pointing...
+2016-10-05 08:07:34.268+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [660]:  Starting store flush...
+2016-10-05 08:07:34.487+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 660 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b].
+2016-10-05 08:07:34.532+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 660 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b].
+2016-10-05 08:07:34.694+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [660]:  Store flush completed
+2016-10-05 08:07:34.700+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [660]:  Starting appending check point entry into the tx log...
+2016-10-05 08:07:34.732+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [660]:  Appending check point entry into the tx log completed
+2016-10-05 08:07:34.738+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [660]:  Check pointing completed
+2016-10-05 08:07:34.745+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2016-10-05 08:07:34.751+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2016-10-05 08:07:48.612+0000 INFO  [o.n.c.i.CypherCompiler] Discarded stale query from the query cache: MATCH (a:student),(b:Group) WHERE id(a)=317  AND id(b)=296    WITH a,b  CREATE (a)-[r:Group_SD]->(b) return r
+2016-10-05 08:08:05.237+0000 INFO  [o.n.c.i.ExecutionEngine] Discarded stale query from the query cache: MATCH (n:student) return n
+2016-10-05 08:08:05.246+0000 INFO  [o.n.c.i.CypherCompiler] Discarded stale query from the query cache: MATCH (n:student) return n
+2016-10-05 08:12:34.772+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [662]:  Starting check pointing...
+2016-10-05 08:12:34.779+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [662]:  Starting store flush...
+2016-10-05 08:12:34.895+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 662 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a].
+2016-10-05 08:12:34.914+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 662 to [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.b], from [C:\Users\het\Google Диск\Prog\db\project\lab\neostore.counts.db.a].
+2016-10-05 08:12:35.106+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [662]:  Store flush completed
+2016-10-05 08:12:35.114+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [662]:  Starting appending check point entry into the tx log...
+2016-10-05 08:12:35.153+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [662]:  Appending check point entry into the tx log completed
+2016-10-05 08:12:35.160+0000 INFO  [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [662]:  Check pointing completed
+2016-10-05 08:12:35.167+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2016-10-05 08:12:35.173+0000 INFO  [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.

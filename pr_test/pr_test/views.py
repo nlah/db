@@ -23,8 +23,10 @@ app.json_encoder = CustomJSONEncoder
 
 class appbild:
     log=None
+    session=None
     def test(self,session,request):
         self.log=Strategy_data()
+        self.session=session
         flag=True
         if(request.form.get('start')!=None):
             flag=False
@@ -35,6 +37,7 @@ class appbild:
             self.log.logic(session['User'])
         return flag
     def add_session(self,session):
+        self.session=session
         self.log=Strategy_data()
         if session.get('User')==None:
             abort(404)
@@ -43,7 +46,7 @@ class appbild:
     def start(self,session):
         session.clear()
         self.log=Strategy_data()
-        inf=(['start'],'Имя ввидети')
+        inf=(['start'],'Имя введите')
         resp=make_response(render_template(
                 'index.html',
                 title='Home Page',
@@ -59,7 +62,7 @@ class appbild:
             db_inf= self.log.create(request.form)
             resp=make_response( render_template(
                     'index.html',
-                    title='Home Page',
+                    title=self.session['User'],
                     year=datetime.now().year,
                     data = db_inf,
                     form= self.log.information()[0],
@@ -71,7 +74,7 @@ class appbild:
     def choice_Node(self):
         resp=make_response( render_template(
                     'index.html',
-                    title='Home Page',
+                    title=self.session['User'],
                     year=datetime.now().year,
                     data = None,
                     form= self.log.information()[0],
@@ -83,7 +86,7 @@ class appbild:
     def choice_rel(self):
         return render_template(
             'Add_relationship.html',
-            title='-',
+            title=self.session['User'],
             year=datetime.now().year,
             message='Your application description page.',
             labls_name='start',
@@ -92,13 +95,14 @@ class appbild:
         )
     def add_rel(self,request):
         inf=['start']
+        flag=True
         try:
             inf=self.log.information_E()[0][request.form['start']][0]
             if(session['User']=='employee'and request.form['start']=='Group'):
-                data=self.log.match_model(0,0,True)
+                data=self.log.match_model(0,0,True);flag=False
             if(session['User']=='student'and request.form['start']=='employee'):
-                data=self.log.match_model(0,0,True)
-            else:
+                data=self.log.match_model(0,0,True);flag=False
+            if(flag):
                 data=( self.log.MATCH_rel(session['User'],self.log.information_E()[0][request.form['start']][1]),
                 self.log.MATCH_rel(request.form['start'],None),Strategy_data.id_get_query( self.log.MATCH_rel(request.form['start'],None)))
         except:
@@ -106,7 +110,7 @@ class appbild:
         finally:             
             return render_template(
                 'Add_relationship.html',
-                title='-',
+                title=self.session['User'],
                 year=datetime.now().year,
                 message='Your application description page.',
                 labls_name='start',  
@@ -117,7 +121,7 @@ class appbild:
             return render_template(
                 'update_node.html',
                 title='choice_update_node',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=self.log.match_model(0,0),
                 form=['id','name','data'],
@@ -128,7 +132,7 @@ class appbild:
             return render_template(
                 'update_node.html',
                 title='use_update_node',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=self.log.match_model(0,0)  ,
                 form=['id','name','data'],
@@ -138,7 +142,7 @@ class appbild:
             return render_template(
                 'update_rel.html',
                 title='Contact',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=self.log.match_model(0,0),
                 form=['id'],
@@ -155,20 +159,18 @@ class appbild:
         finally:
             return render_template(
                     'update_rel.html',
-                    title='-',
+                    title=self.session['User'],
                     year=datetime.now().year,
                     message='Your application description page.',
                     form=['id','name','data'],
                     MODEL=data_MODEL,
                     error=self.log.error
                     )
-
-
     def choice_delete_node(self):
             return render_template(
                 'del.html',
                 title='Contact',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=self.log.match_model(0,0),
                 form=['id'],
@@ -180,7 +182,7 @@ class appbild:
             return render_template(
                 'del.html',
                 title='Contact',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=self.log.match_model(0,0)    ,
                 form=['id'],
@@ -190,7 +192,7 @@ class appbild:
             return render_template(
                 'del_rel.html',
                 title='Contact',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=self.log.match_model(0,0),
                 form=['id'],
@@ -202,7 +204,7 @@ class appbild:
         return render_template(
                 'del_rel.html',
                 title='Contact',
-                year= '-',
+                year= self.session['User'],
                 message='Your contact page.',
                 MODEL=data_MODEL,
                 form=['id'],
@@ -211,7 +213,7 @@ class appbild:
     def choice_match(self):
         return render_template(
                 'match.html',
-                title='-',
+                title=self.session['User'],
                 year=datetime.now().year,
                 message='Your application description page.',
                 form=['id'],
@@ -223,7 +225,7 @@ class appbild:
           data_M=self.log.data.departament(request.form['id'])
           return render_template(
                 'match.html',
-                title='-',
+                title=self.session['User'],
                 year=datetime.now().year,
                 message='Your application description page.',
                 form=['id'],
