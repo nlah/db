@@ -54,8 +54,11 @@ class MODEL_data:
             return None
 
     def _match(self,leble:str,i:int,j:int):
-        return self.query('MATCH (n:'+leble+')-[*'+str(i)+'..'+str(j)+']-(m) return m')
-    
+        if(i==0 and j==0):
+            return self.query('MATCH (n:'+leble+') return n')
+        else:
+            return self.query('MATCH (n:'+leble+')-[*'+str(i)+'..'+str(j)+']-(m) return m')
+     
     def res(self):
         self._add_CREATE('MATCH (n) DETACH DELETE n')
         self.save()
@@ -67,18 +70,22 @@ class MODEL_data:
        self._add_CREATE('MATCH (n) WHERE id(n)='+str(id)+' SET n.'+name+'=\''+data+'\'')
        self.save()
     def update_E(self,id,name,data):
-       self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+' SET n.'+name+'='+data)
+       self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+' SET n.'+name+'=\''+data+'\'')
        self.save()
     def DELETE_N(self,id):
        self._add_CREATE('MATCH (n) WHERE id(n)='+str(id)+' DETACH DELETE n')
        self.save()
     def DELETE_E(self,id):
-       self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+' DETACH DELETE n')
+       self._add_CREATE('MATCH ()-[n]-() WHERE id(n)='+str(id)+'  DELETE n')
        self.save()
     def MATCH_rel_id(self,id):
         return self.query('MATCH (a)-[r]-(n) WHERE id(a)='+str(id)+' return r,n')
+    def MATCH_node_id(self,id):
+               self._add_CREATE('MATCH (n) WHERE id(n)='+str(id)+'  return n')
     def MATCH_rel(self,lable,rel):
-        return self.query('MATCH (a:'+lable+')-[r:'+rel+']-(n) return r,n')        
+        return self.query('MATCH (a:'+lable+')-[r:'+rel+']-(n) return r,n')     
+    def MATCH_relationship(self,id):
+        return self.query('MATCH ()-[r]-() WHERE id(r)='+str(id)+' return r')        
     def labels_name(self):
         return ['department','undepartment','Group','employee','subject','lecture_hall','student']
     @staticmethod
@@ -108,7 +115,7 @@ class department(MODEL_data):
         def Create(self,name,data):
               list(map(lambda x,y:self._add_CREATE('CREATE (a:department{name:\''+x+'\',data:\''+y+'\'}) return a'),name,data))
               return self.save()
-        def MATCH(self,i,j):
+        def MATCH(self,i,j,test=False):
             return self._match('department',i,j)
         def MATCH_A(self,name):
             return self.query('MATCH (n:department{name:\''+name+'\'}) return n')
@@ -131,7 +138,7 @@ class undepartment(MODEL_data):
               return self.save()
         def Crate_E(self,data):
             if(data.get('undepartment')!=None and  data.get('department')!=None):return self.Create_place(data.get('undepartment'), data.get('department'))  
-        def MATCH(self,i,j):
+        def MATCH(self,i,j,test=False):
             return self._match('undepartment',i,j)
 
         def MATCH_A(self,name):
@@ -155,7 +162,7 @@ class employee(MODEL_data):
           self._add_CREATE('MATCH (a:'+labl+'),(b:employee) WHERE id(b)='+str(id)+' and id(a)='+str(idD)+' and not EXISTS((b)-[:life]-()) WITH a,b  CREATE (b)-[r:life]->(a)  return r')
           return self.save()
         def Create_Group(self,idG,idE):
-            self._add_CREATE('MATCH (a:Group),(b:employee) WHERE id(b)='+str(idE)+' and id(a)='+str(idG)+' WITH a,b  CREATE (b)-[r:curator]->(a)  return r' )
+            self._add_CREATE('MATCH (a:Group),(b:employee) WHERE  id(b)='+str(idE)+' and id(a)='+str(idG)+' not EXISTS((b)-[:curator]-()) and  EXISTS((a)-[:GR]-(:undepartment)-[:life]-(b)) WITH a,b  CREATE (b)-[r:curator]->(a)  return r' )
             return self.save()
         def Create_subject(self,idS,id):
             self._add_CREATE('MATCH (a:subject),(b:employee) WHERE id(b)='+str(id)+' and id(a)='+str(idS)+' WITH a,b  CREATE (b)-[r:employee_subject]->(a) return r')
@@ -165,8 +172,12 @@ class employee(MODEL_data):
             if(data.get('department')!=None and  data.get('employee')!=None):return self.Create_place('department',data.get('department'), data.get('employee'))    
             if(data.get('employee')!=None and data.get('Group')!=None):return self.Create_Group(data.get('Group'),data.get('employee'))  
             if(data.get('subject')!=None and data.get('employee')!=None):return self.Create_Group(data.get('subject'),data.get('employee'))  
-        def MATCH(self,i,j):
-            return self._match('employee',i,j)  
+        def MATCH(self,i,j,test=False):
+            if(test):
+                return self.query('MATCH (a:Group),(b:employee) WHERE not EXISTS((a)-[:curator]-()) and  EXISTS((a)-[:GR]-(:undepartment)-[:life]-(b)) return a,b')
+            else:
+                return self._match('employee',i,j)
+         
         def departament(self,id):
             return self.query('match (n:employee)-[r:life|un*]->(m:department) where  id(n)='+str(id)+' return DISTINCT m,r')
         def information(self):
@@ -186,7 +197,7 @@ class Group(MODEL_data):
            return self.save()
         def Crate_E(self,data):
             if(data.get('undepartment')!=None and data.get('Group')!=None): return self.Create_un(data.get('Group'),data.get('undepartment'))  
-        def MATCH(self,i,j):
+        def MATCH(self,i,j,test=False):
             return self._match('Group',i,j) 
         def information(self):
             return (['name'],'Group')
@@ -211,7 +222,7 @@ class subject(MODEL_data):
         def Crate_E(self,data):
             if(data.get('subject')!=None and data.get('undepartment')!=None): return self.Create_un(data.get('undepartment'),data.get('subject'))  
             if(data.get('subject')!=None and data.get('lecture_hall')!=None and data.get('time')!=None ): return self.Create_time(data.get('subject'),data.get('lecture_hall'),data.get('time'))   
-        def MATCH(self,i,j):
+        def MATCH(self,i,j,test=False):
             return self._match('subject',i,j) 
 
         def departament(self,id):
@@ -229,12 +240,12 @@ class lecture_hall(MODEL_data):
         list(map(lambda x: self._add_CREATE('CREATE (a:lecture_hall{number:'+str(x)+'}) return a'),N))
         return self.save()
     def Create_un(self,id,idU):
-           self._add_CREATE('MATCH (a:lecture_hall),(b:undepartment) WHERE id(b)='+str(id)+' and id(a)='+str(idU)+' WITH a,b  CREATE (a)-[r:lecture_hall_undepartment]->(b) return r')
+           self._add_CREATE('MATCH (a:lecture_hall),(b:undepartment) WHERE id(a)='+str(id)+' and id(b)='+str(idU)+' and not EXISTS((a)-[:lecture_hall_undepartment]-()) WITH a,b  CREATE (a)-[r:lecture_hall_undepartment]->(b) return r')
            return self.save()
     def Crate_E(self,data):
         if(data.get('lecture_hall')!=None and data.get('undepartment')!=None): return self.Create_un(data.get('lecture_hall'),data.get('undepartment'))
  
-    def MATCH(self,i,j):
+    def MATCH(self,i,j,test=False):
         return self._match('lecture_hall',i,j)
     def departament(self,id):
         return self.query('match (n:lecture_hall)-[r:time_lecture|subject_s|Group_SD|GR|un*]-(m:department) where  id(n)='+str(id)+' return DISTINCT m,r')
@@ -250,11 +261,9 @@ class student(MODEL_data):
     def Create(self,name,address,data):
         list(map(lambda x,y,z:self._add_CREATE('CREATE (a:student{name:\''+x+'\',address:\''+y+'\',data:\''+y+'\'}) return a'),name,address,data))
         return self.save()
-
     def Create_work(self,ids,idl,text):
-              self._add_CREATE('MATCH (a:student),(b:employee) WHERE id(a)='+str(ids)+' AND id(b)='+str(idl)+' and not EXISTS((a)-[:DWorKW]-())  WITH a,b  CREATE (a)-[r:DWorKW{text:\''+text+'\'}]->(b) return r')    
+              self._add_CREATE('MATCH (a:student),(b:employee) WHERE id(a)='+str(ids)+' AND id(b)='+str(idl)+' and not EXISTS((a)-[:DWorKW]-()) and EXISTS((a)--()-[:GR]-(:undepartment)-[:life]-(b))  WITH a,b  CREATE (a)-[r:DWorKW{text:\''+text+'\'}]->(b) return r')    
               return self.save()
-
     def Create_Group(self,ids,idG):
               self._add_CREATE('MATCH (a:student),(b:Group) WHERE id(a)='+str(ids)+' AND id(b)='+str(idG)+'   WITH a,b  CREATE (a)-[r:Group_SD]->(b) return r')    
               return self.save()
@@ -266,28 +275,31 @@ class student(MODEL_data):
         if(data.get('subject')!=None and data.get('student')!=None and data.get('evaluation')!=None): return self.Create_subject(data.get('student'),data.get('subject'),data.get('evaluation'))
         if(data.get('student')!=None and data.get('employee')!=None and data.get('text')!=None): return self.Create_work(data.get('student'),data.get('employee'),data.get('text'))
 
-        
+ 
     def MATCH_lable(self,id,lable):
         return self.query('MATCH (a:student)-[r:'+lable+']-(n) WHERE id(a)='+str(id)+' return r,n')
-    def MATCH(self,i,j):
-        return self._match('student',i,j)
+    def MATCH(self,i,j,test=False):
+            if(test):
+                return self.query('MATCH (a:student),(b:employee) WHERE not EXISTS((a)-[:DWorKW]-()) and  EXISTS((a)--()-[:GR]-(:undepartment)-[:life]-(b)) return a,b')
+            else:
+                return self._match('student',i,j)
     def departament(self,id):
         return self.query('match (n:student)-[r:Group_SD|GR|un*]->(m:department) where  id(n)='+str(id)+' return DISTINCT m,r')
     def information(self):
             return (['name','address','data'],'student')
     def information_E(self):
-            return ({'Group':(['Group','student'],'Group_SD'),'employee':(['employee','student','text'],'DWorKW'),'subject':(['subject','student'],'subject_s')},'student')
+            return ({'Group':(['Group','student'],'Group_SD'),'employee':(['employee','student','text'],'DWorKW'),'subject':(['subject','student','evaluation'],'subject_s')},'student')
 class Strategy_data(MODEL_data):
     data=None
     information=None
     def logic(self,data):
-        if('department'==data):self.data=department()
-        if('undepartment'==data): self.data=undepartment()
-        if('Group'==data):self.data=Group()
-        if('employee'==data):self.data=employee()
-        if('subject'==data): self.data=subject()
-        if('lecture_hall'==data):self.data=lecture_hall()
-        if('student'==data):self.data=student()
+        if('department'==data):self.data=department();self.data.error.clear()
+        if('undepartment'==data): self.data=undepartment();self.data.error.clear()
+        if('Group'==data):self.data=Group();self.data.error.clear()
+        if('employee'==data):self.data=employee();self.data.error.clear()
+        if('subject'==data): self.data=subject();self.data.error.clear()
+        if('lecture_hall'==data):self.data=lecture_hall();self.data.error.clear()
+        if('student'==data):self.data=student();self.data.error.clear()
     def label(self):
         return self.labels_name()
     def create(self,inf):
@@ -297,8 +309,8 @@ class Strategy_data(MODEL_data):
         self.data.Crate_E(inf)
      
     
-    def match_model(self,i,j):
-        return self.data.MATCH(i,j)
+    def match_model(self,i,j,test=False):
+        return self.data.MATCH(i,j,test)
     def information(self):
         return self.data.information()
     def information_E(self):

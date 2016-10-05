@@ -43,3 +43,12 @@ MERGE (und)-[:un]->(d);
 
 
 
+drop INDEX ON :employee(EmployeeID);
+drop INDEX ON :Group(grupID);
+drop INDEX ON :undepartment(undepartmentID);
+drop INDEX ON :department(departmentID);
+
+MATCH (n:employee) SET n.EmployeeID = NULL;
+MATCH (n:Group) SET n.grupID = NULL;
+MATCH (n:undepartment) SET n.undepartmentID = NULL;
+MATCH (n:department) SET n.departmentID = NULL;

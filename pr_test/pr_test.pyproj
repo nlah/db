@@ -43,8 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pr_test\templates\del.html" />
+    <Content Include="pr_test\templates\del_rel.html" />
     <Content Include="pr_test\templates\index.html" />
     <Content Include="pr_test\templates\match.html" />
+    <Content Include="pr_test\templates\update_rel.html" />
     <Content Include="requirements.txt" />
     <Content Include="pr_test\static\content\bootstrap.css" />
     <Content Include="pr_test\static\content\bootstrap.min.css" />
@@ -68,8 +70,8 @@
     <Content Include="pr_test\static\scripts\respond.js" />
     <Content Include="pr_test\static\scripts\respond.min.js" />
     <Content Include="pr_test\static\scripts\_references.js" />
-    <Content Include="pr_test\templates\about.html" />
-    <Content Include="pr_test\templates\contact.html" />
+    <Content Include="pr_test\templates\Add_relationship.html" />
+    <Content Include="pr_test\templates\update_node.html" />
     <Content Include="pr_test\templates\layout.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
