@@ -315,11 +315,22 @@ class Strategy_data(MODEL_data):
         return self.data.information()
     def information_E(self):
         return self.data.information_E()
-    def MATCH_rel(self, lable,rel):
+    def _MATCH_rel(self, lable,rel):
         if(rel==None):
             return self._match(lable,0,0)
         else:
             return self.query('MATCH (n:'+lable+') WHERE  not EXISTS((n)-[:'+rel+']-())  return n')
+    def MATCH_rel(self,session,request):
+            flag=True
+            data=None
+            if(session['User']=='employee'and request.form['start']=='Group'):
+                data=self.log.match_model(0,0,True);flag=False
+            if(session['User']=='student'and request.form['start']=='employee'):
+                data=self.log.match_model(0,0,True);flag=False
+            if(flag):
+                data=( self._MATCH_rel(session['User'],self.information_E()[0][request.form['start']][1]),
+                self._MATCH_rel(request.form['start'],None),Strategy_data.id_get_query( self._MATCH_rel(request.form['start'],None)))
+            return data
     def dep(self,id):
          return self.query('MATCH (n)-[*]-(m:department) WHERE id(n)='+str(id)+' WITH n ')
 #def test():

@@ -95,16 +95,9 @@ class appbild:
         )
     def add_rel(self,request):
         inf=['start']
-        flag=True
         try:
             inf=self.log.information_E()[0][request.form['start']][0]
-            if(session['User']=='employee'and request.form['start']=='Group'):
-                data=self.log.match_model(0,0,True);flag=False
-            if(session['User']=='student'and request.form['start']=='employee'):
-                data=self.log.match_model(0,0,True);flag=False
-            if(flag):
-                data=( self.log.MATCH_rel(session['User'],self.log.information_E()[0][request.form['start']][1]),
-                self.log.MATCH_rel(request.form['start'],None),Strategy_data.id_get_query( self.log.MATCH_rel(request.form['start'],None)))
+            data=self.log.MATCH_rel(session,request)
         except:
             data=self.log.create_E(request.form)
         finally:             
