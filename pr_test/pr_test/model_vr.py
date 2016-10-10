@@ -10,7 +10,7 @@ class MODEL_data:
     __save=[]   
     error=[]
     def __init__(self):
-        self.__driver=GraphDatabase.driver('bolt://localhost:7687', auth=basic_auth("neo4j", "qwe3809696"),encrypted=False)
+        self.__driver=GraphDatabase.driver('bolt://localhost:7687', auth=basic_auth("neo4j", "123456"),encrypted=False)
     def _add_CREATE(self,query):
        self.__save.append(query)
     def save(self):
@@ -308,8 +308,7 @@ class Strategy_data(MODEL_data):
 
     def create_E(self,inf):
         self.data.Crate_E(inf)
-     
-    
+
     def match_model(self,i,j,test=False):
         return self.data.MATCH(i,j,test)
     def information(self):
